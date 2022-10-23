@@ -33,21 +33,21 @@ func (fn Continuous) Sample(src Continuous, interval, phase float64) float64 {
 //
 // If building a lookup table, let sampling interval equal the recipricol of len(Discrete).
 //
-//  const n = 1024
-//  sig := make(Discrete, n)
-//  sig.Sample(SineFunc, 1/n, 0)
+//	const n = 1024
+//	sig := make(Discrete, n)
+//	sig.Sample(SineFunc, 1/n, 0)
 //
 // If samples are intended to be played back in sequence, provide normalized frequency
 // against output sample rate; e.g. to sample four seconds of 440Hz sine wave at 44.1kHz
 //
-//  r := 44100.0
-//  t := 4.0
-//  out := make(Discrete, int(r*t)) // allocate four seconds of space
-//  out.Sample(SineFunc, 440/r, 0)  // sample 440Hz sine wave
+//	r := 44100.0
+//	t := 4.0
+//	out := make(Discrete, int(r*t)) // allocate four seconds of space
+//	out.Sample(SineFunc, 440/r, 0)  // sample 440Hz sine wave
 //
 // To play these samples over four second period, use an oscillator as clock.
 //
-//  osc := snd.NewOscil(out, 1/t, nil) // package dasa.cc/snd
+//	osc := snd.NewOscil(out, 1/t, nil) // package dasa.cc/snd
 //
 // TODO document sampling at different rates.
 type Discrete []float64
@@ -232,6 +232,17 @@ func Sawtooth() Discrete {
 	return sig
 }
 
+func ExpDecayFunc(t float64) float64 {
+	return math.Exp(twopi * -t)
+}
+
+// ExpDecay returns a discrete sample of ExpDecayFunc.
+func ExpDecay() Discrete {
+	sig := make(Discrete, 1024)
+	sig.Sample(ExpDecayFunc, 1./1024, 0)
+	return sig
+}
+
 // fundamental default used for sinusoidal synthesis.
 var fundamental = Sine()
 
@@ -254,4 +265,8 @@ func SawtoothSynthesis(n int) Discrete {
 	}
 	sig.Normalize()
 	return sig
+}
+
+type Float interface {
+	~float32 | ~float64
 }
