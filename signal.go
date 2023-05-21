@@ -7,6 +7,8 @@ import (
 
 const twopi = 2 * math.Pi
 
+const DefaultSize = 4096
+
 type Sampler interface {
 	// Sample reads values from src at phase by interval and returns next phase to sample.
 	//
@@ -187,8 +189,8 @@ func SineFunc(t float64) float64 {
 
 // Sine returns a discrete sample of SineFunc.
 func Sine() Discrete {
-	sig := make(Discrete, 1024)
-	sig.Sample(SineFunc, 1./1024, 0)
+	sig := make(Discrete, DefaultSize)
+	sig.Sample(SineFunc, 1./DefaultSize, 0)
 	return sig
 }
 
@@ -200,8 +202,8 @@ func TriangleFunc(t float64) float64 {
 
 // Triangle returns a discrete sample of TriangleFunc.
 func Triangle() Discrete {
-	sig := make(Discrete, 1024)
-	sig.Sample(TriangleFunc, 1./1024, 0)
+	sig := make(Discrete, DefaultSize)
+	sig.Sample(TriangleFunc, 1./DefaultSize, 0)
 	return sig
 }
 
@@ -215,8 +217,8 @@ func SquareFunc(t float64) float64 {
 
 // Square returns a discrete sample of SquareFunc.
 func Square() Discrete {
-	sig := make(Discrete, 1024)
-	sig.Sample(SquareFunc, 1./1024, 0)
+	sig := make(Discrete, DefaultSize)
+	sig.Sample(SquareFunc, 1./DefaultSize, 0)
 	return sig
 }
 
@@ -227,8 +229,8 @@ func SawtoothFunc(t float64) float64 {
 
 // Sawtooth returns a discrete sample of SawtoothFunc.
 func Sawtooth() Discrete {
-	sig := make(Discrete, 1024)
-	sig.Sample(SawtoothFunc, 1./1024, 0)
+	sig := make(Discrete, DefaultSize)
+	sig.Sample(SawtoothFunc, 1./DefaultSize, 0)
 	return sig
 }
 
@@ -238,8 +240,8 @@ func ExpDecayFunc(t float64) float64 {
 
 // ExpDecay returns a discrete sample of ExpDecayFunc.
 func ExpDecay() Discrete {
-	sig := make(Discrete, 1024)
-	sig.Sample(ExpDecayFunc, 1./1024, 0)
+	sig := make(Discrete, DefaultSize)
+	sig.Sample(ExpDecayFunc, 1./DefaultSize, 0)
 	return sig
 }
 
